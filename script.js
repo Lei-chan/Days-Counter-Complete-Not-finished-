@@ -14,12 +14,18 @@ const allDays = document.querySelectorAll(".days");
 const passwordForm = document.querySelector(".password_form");
 const usernameForm = document.querySelector(".username_form");
 const btnCreateAccount = document.querySelector(".create_account");
-const bodyCreateAcc = document.getElementById("create_account_body");
+const formAccUserPass = document.querySelector(
+  ".account_form_username_password"
+);
 const btnXCreateAcc = document.querySelector(".account_x");
 const btnSubmitCreateAcc = document.querySelector(".btn_submit");
 const warningCreateAcc = document.querySelector(".username_warning");
 const bodyAddMoreInfo = document.getElementById("add_more_info_body");
 const slideAddMoreInfo = document.querySelector(".add_more_info-slide");
+const formAccSetGoals = document.querySelector(".account_form_set_goals");
+
+formAccSetGoals.style.top = formAccUserPass.getBoundingClientRect().top;
+formAccSetGoals.style.top = formAccUserPass.getBoundingClientRect().left;
 
 //login//
 const testAccount = {

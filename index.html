@@ -12,19 +12,19 @@
       <h2>Log in</h2>
       <div id="wrong"
       hidden >
-        <p>Wrong username or password was entered!  &nbsp; &nbsp; &nbsp; &nbsp;Try again!</p>
+        <p>Wrong username or password was entered!<br> again!</p>
       </div>
       <input class="username" type="text" placeholder="username"></input>
       <input class="password" type="text" placeholder="password"></input>
       <button class="btn1"> </button>
-      <button class="create_account">click here to create an account!</button>
     </form>
+    <p class="scroll_login_explanation">Click to create your account</p>
+    <button class="btn_scroll_login">&larr;</button>
     </div>
 
     <!--create an account-->
-    <div id="create_account_body" hidden>
-      <form class="account_form">
-        <button class="account_x">&times;</button>
+    <div id="create_account_body">
+      <form class="account_form account_form_username_password">
         <h1>Let's create your account</h1>
         <p class="account_form_explanation">Fill the form to create your account!</p>
         <p class="username_form_explanation">Set your username you want to use</p>
@@ -36,8 +36,10 @@
       <div class="you_will_need">You will need this information in the next page!</div>
     </form>
     </div>
+
+    <!--slider-->
     <div id="add_more_info_body" hidden>
-      <form class="account_form">
+      <form class="account_form account_form_set_goals">
         <h1>Let's set your goals!</h1>
         <p>You can set up to 10 goals! (You can also add or edit goals later)</p>
        <div class="add_more_info-slide">

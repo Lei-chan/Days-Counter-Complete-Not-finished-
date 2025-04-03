@@ -6,6 +6,7 @@
 
 body {
   background-image: url(images/wallpaperDaytime.jpg);
+  text-align: center;
 }
 
 .login_form {
@@ -14,22 +15,19 @@ body {
   flex-direction: column;
   margin-left: 31%;
   margin-top: 12%;
-  background-image: linear-gradient(rgb(132, 0, 255), rgb(252, 116, 245));
+  background-image: linear-gradient(rgb(252, 166, 116), yellow);
   border-radius: 10px;
   height: 300px;
   width: 500px;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.562);
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
 
-  color: rgb(247, 243, 252);
-
-  padding-left: 120px;
+  color: rgb(255, 255, 255);
 }
 
 .login_form h2 {
   font-size: 30px;
   letter-spacing: 2px;
   margin-top: 20px;
-  margin-left: 83px;
 }
 
 .username,
@@ -40,11 +38,11 @@ body {
   text-align: center;
   letter-spacing: 1px;
   margin-top: 40px;
-  margin-left: 2px;
+  margin-left: 25%;
 }
 
 .btn1 {
-  background-color: rgba(238, 232, 170, 0);
+  background: none;
   background-image: url("images/sun.png");
   background-size: cover;
   border: none;
@@ -52,27 +50,13 @@ body {
   height: 50px;
   width: 70px;
   margin-top: 20px;
-  margin-left: 88px;
+  margin-left: 43%;
   margin-bottom: 10px;
   transition: all 0.3s;
 }
 
 .btn1:hover {
   transform: translateY(-2px);
-}
-
-.create_account {
-  color: rgb(0, 68, 255);
-  background: none;
-  border: none;
-  font-size: 16px;
-  margin-right: 120px;
-  margin-top: 6px;
-  cursor: pointer;
-}
-
-.create_account:hover {
-  color: #fffc5b;
 }
 
 #wrong {
@@ -94,39 +78,50 @@ body {
   font-size: 20px;
 }
 
-.account_form {
+.scroll_login_explanation {
+  margin-top: 80px;
+  font-size: 140%;
+  letter-spacing: 2px;
+  color: white;
+}
+
+.btn_scroll_login {
   position: relative;
+  transform: rotate(270deg);
+  border-radius: 100%;
+  border: none;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+  font-size: 130%;
+  background-color: #fcfce181;
+  margin-top: 20px;
+}
+
+#create_account_body {
+  position: relative;
+  /* border-top-color: #0359b6; */
+  height: 800px;
+  top: 170px;
+}
+
+.account_form {
+  position: absolute;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(rgb(154, 233, 247), rgb(0, 153, 255));
-  border-radius: 7px;
-  box-shadow: 0 5px 10px #0d0e44;
+  background-color: #fafa01e7;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px #0d0e4488;
   height: 500px;
-  width: 700px;
-  margin-left: 23%;
-  margin-top: 40px;
+  width: 800px;
   color: black;
   gap: 10px;
-  text-align: center;
-}
-
-.account_x {
-  position: absolute;
-  background: none;
-  border: none;
-  font-size: 35px;
-  cursor: pointer;
-  transition: all 0.2s;
-  right: 10px;
-}
-
-.account_x:hover {
-  transform: translateY(-2px);
+  top: 200px;
+  left: 20%;
 }
 
 .account_form h1 {
-  text-align: center;
-  color: white;
+  color: #0359b6;
   font-size: 45px;
   margin: 25px;
   margin-bottom: 0;
@@ -134,8 +129,7 @@ body {
 }
 
 .account_form_explanation {
-  text-align: center;
-  color: white;
+  color: #0359b6;
   font-size: 20px;
   letter-spacing: 1px;
   margin-top: 25px;
@@ -158,7 +152,7 @@ body {
 .password_form {
   height: 25px;
   width: 300px;
-  margin-left: 200px;
+  margin-left: 30%;
   margin-top: 10px;
   letter-spacing: 1px;
   padding-left: 5px;
@@ -173,11 +167,12 @@ body {
 .btn_submit {
   height: 60px;
   width: 150px;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   border: none;
-  background-color: #0004ff;
+  background-color: #00a9dd;
   color: white;
+  font-family: "Arial";
   font-size: 20px;
   letter-spacing: 3px;
   margin-left: 39%;
@@ -185,23 +180,29 @@ body {
 }
 
 .btn_submit:hover {
-  background-color: #fff133;
+  background-color: #33ffcc;
   transform: translateY(-2px);
 }
 
 .you_will_need {
   position: absolute;
-  background-color: rgb(230, 230, 230);
+  background-color: rgb(255, 187, 0);
   color: rgb(192, 0, 0);
   font-size: 120%;
   text-align: left;
-  height: 100px;
-  width: 200px;
-  padding: 15px;
+  height: 120px;
+  width: 220px;
+  padding-top: 25px;
   padding-left: 25px;
-  border-radius: 2px;
+  border-radius: 100%;
   right: 20px;
   bottom: 20px;
+}
+
+#add_more_info_body {
+  position: absolute;
+  top: 140%;
+  left: 20%;
 }
 
 #add_more_info_body p {
@@ -215,10 +216,10 @@ body {
   position: relative;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 236, 236));
   height: 300px;
-  width: 550px;
+  width: 600px;
   border-radius: 5px;
   top: 5px;
-  left: 75px;
+  left: 12%;
 }
 
 .testimonial_header {
@@ -243,6 +244,8 @@ body {
 
 .slide_btn:hover {
   cursor: pointer;
+  background-color: #0000004d;
+  transition: all 0.5s;
 }
 
 .slide_btn-left {
@@ -256,14 +259,14 @@ body {
 .set_goals_later {
   position: absolute;
   right: 30px;
-  bottom: 15px;
+  bottom: 20px;
   font-size: 110%;
   letter-spacing: 1px;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .set_goals_later:hover {
-  color: #f8e800;
+  color: #00bef8;
   transform: translateY(-2px);
 }
 
