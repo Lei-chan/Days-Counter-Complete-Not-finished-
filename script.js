@@ -1,7 +1,7 @@
 "use strict";
 const bodyCreateAcc = document.getElementById("body--create-account");
 const body2 = document.getElementById("body2");
-const bodyAddMoreInfo = document.getElementById("add_more_info_body");
+const bodyAddMoreInfo = document.getElementById("body--addmoreinfo");
 const pageFirst = document.getElementById("login");
 const loginForm = document.querySelector(".login_form");
 const username = document.querySelector(".username");
@@ -18,7 +18,7 @@ const formAccUserPass = document.querySelector(
   ".account_form_username_password"
 );
 const warningCreateAcc = document.querySelector(".username_warning");
-const slideAddMoreInfo = document.querySelector(".add_more_info-slide");
+const slideAddMoreInfo = document.querySelector(".slide--addmoreinfo");
 const formAccSetGoals = document.querySelector(".account_form_set_goals");
 const btnScrollCreateAcc = document.querySelector(
   ".btn_scroll--create-account"
@@ -26,6 +26,26 @@ const btnScrollCreateAcc = document.querySelector(
 const btnSubmitCreateAcc = document.querySelector(
   ".btn_submit--create-account"
 );
+
+const formAcc = document.querySelectorAll(".account_form");
+
+const setSliderComponent = function () {
+  for (let i = 0; i < 10; i++) {
+    const html = `
+        <div class="slide slide--${i}">
+            <h2 class="testimonial_header">
+              Goal No.${i + 1}
+            </h2>
+            <div class="testimonial__text">
+            </div>
+          </div>`;
+    slideAddMoreInfo.insertAdjacentHTML("beforeend", html);
+  }
+};
+setSliderComponent();
+
+const slideAll = document.querySelectorAll(".slide");
+slideAll.forEach((s, i) => (s.style.transform = `translateX(${600 * i}px)`));
 
 //login//
 const testAccount = {
@@ -294,7 +314,13 @@ btnSubmitCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
 
   if (passwordForm.value && usernameForm.value) {
-    if (accounts.find((acc) => acc.username === usernameForm.value)) {
+    if (
+      accounts.find(
+        (acc) =>
+          acc.username === usernameForm.value &&
+          acc.password === passwordForm.value
+      )
+    ) {
       warningCreateAcc.hidden = false;
     } else {
       new CreateAccount(

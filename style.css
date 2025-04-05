@@ -98,11 +98,12 @@ body {
   margin-top: 20px;
 }
 
-#body--create-account {
-  position: relative;
+#body--create-account,
+#body--addmoreinfo {
+  position: absolute;
   /* border-top-color: #0359b6; */
   height: 600px;
-  top: 370px;
+  top: 180%;
 }
 
 .account_form {
@@ -116,8 +117,8 @@ body {
   width: 800px;
   color: black;
   gap: 10px;
-  top: 10%;
-  left: 20%;
+  top: 30px;
+  left: 290px;
 }
 
 .account_form h1 {
@@ -212,7 +213,7 @@ body {
   margin-top: 3px;
 }
 
-.add_more_info-slide {
+.slide--addmoreinfo {
   position: relative;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 236, 236));
   height: 300px;
@@ -220,6 +221,7 @@ body {
   border-radius: 5px;
   top: 5px;
   left: 12%;
+  /* overflow: hidden; */
 }
 
 .testimonial_header {
