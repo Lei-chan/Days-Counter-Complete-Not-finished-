@@ -1,10 +1,11 @@
 "use strict";
-
-const login = document.getElementById("login");
+const bodyCreateAcc = document.getElementById("body--create-account");
+const body2 = document.getElementById("body2");
+const bodyAddMoreInfo = document.getElementById("add_more_info_body");
+const pageFirst = document.getElementById("login");
 const loginForm = document.querySelector(".login_form");
 const username = document.querySelector(".username");
 const password = document.querySelector(".password");
-const body2 = document.getElementById("body2");
 const welcome = document.getElementById("welcome");
 const timesLeft = document.querySelector(".times_left-inside");
 const date = document.querySelector(".date");
@@ -13,19 +14,18 @@ const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
 const passwordForm = document.querySelector(".password_form");
 const usernameForm = document.querySelector(".username_form");
-const btnCreateAccount = document.querySelector(".create_account");
 const formAccUserPass = document.querySelector(
   ".account_form_username_password"
 );
-const btnXCreateAcc = document.querySelector(".account_x");
-const btnSubmitCreateAcc = document.querySelector(".btn_submit");
 const warningCreateAcc = document.querySelector(".username_warning");
-const bodyAddMoreInfo = document.getElementById("add_more_info_body");
 const slideAddMoreInfo = document.querySelector(".add_more_info-slide");
 const formAccSetGoals = document.querySelector(".account_form_set_goals");
-
-formAccSetGoals.style.top = formAccUserPass.getBoundingClientRect().top;
-formAccSetGoals.style.top = formAccUserPass.getBoundingClientRect().left;
+const btnScrollCreateAcc = document.querySelector(
+  ".btn_scroll--create-account"
+);
+const btnSubmitCreateAcc = document.querySelector(
+  ".btn_submit--create-account"
+);
 
 //login//
 const testAccount = {
@@ -249,11 +249,6 @@ container.addEventListener("mouseout", daysHover.bind(0));
 
 ////create an account/////
 
-const createAccOpenClose = function () {
-  openCloseModel(login);
-  openCloseModel(bodyCreateAcc);
-};
-
 class CreateAccount {
   #visitDates = [];
   #howManyDays;
@@ -287,14 +282,12 @@ class CreateAccount {
   }
 }
 
-btnCreateAccount.addEventListener("click", function (e) {
-  e.preventDefault();
-  createAccOpenClose();
-});
-
-btnXCreateAcc.addEventListener("click", function (e) {
-  e.preventDefault();
-  createAccOpenClose();
+btnScrollCreateAcc.addEventListener("click", function (e) {
+  bodyCreateAcc.hidden = false;
+  const cl = this.getAttribute("href");
+  document.querySelector(cl).scrollIntoView({
+    behavior: "smooth",
+  });
 });
 
 btnSubmitCreateAcc.addEventListener("click", function (e) {
