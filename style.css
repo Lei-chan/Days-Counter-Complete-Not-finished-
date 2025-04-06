@@ -221,7 +221,7 @@ body {
   border-radius: 5px;
   top: 5px;
   left: 12%;
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .testimonial_header {
@@ -233,7 +233,7 @@ body {
   left: 28%;
 }
 
-.slide_btn {
+.btn_slide {
   position: absolute;
   border-radius: 100px;
   border: none;
@@ -244,17 +244,17 @@ body {
   font-size: 120%;
 }
 
-.slide_btn:hover {
+.btn_slide:hover {
   cursor: pointer;
   background-color: #0000004d;
   transition: all 0.5s;
 }
 
-.slide_btn-left {
+.btn_left--slide {
   left: 20px;
 }
 
-.slide_btn-right {
+.btn_right--slide {
   right: 20px;
 }
 

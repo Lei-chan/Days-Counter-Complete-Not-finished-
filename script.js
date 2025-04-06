@@ -23,6 +23,8 @@ const formAccSetGoals = document.querySelector(".account_form_set_goals");
 const btnScrollCreateAcc = document.querySelector(
   ".btn_scroll--create-account"
 );
+const btnRightSlider = document.querySelector(".btn_right--slide");
+const btnLeftSlider = document.querySelector(".btn_left--slide");
 const btnSubmitCreateAcc = document.querySelector(
   ".btn_submit--create-account"
 );
@@ -45,7 +47,43 @@ const setSliderComponent = function () {
 setSliderComponent();
 
 const slideAll = document.querySelectorAll(".slide");
-slideAll.forEach((s, i) => (s.style.transform = `translateX(${600 * i}px)`));
+
+const goToSlide = function (currentSlide) {
+  slideAll.forEach(
+    (s, i) => (s.style.transform = `translateX(${600 * (i - currentSlide)}px)`)
+  );
+};
+goToSlide(0);
+
+const nextSlide = function () {
+  currentSlide = currentSlide === slideAll.length - 1 ? 0 : ++currentSlide;
+  goToSlide(currentSlide);
+};
+
+const previousSlide = function () {
+  currentSlide = currentSlide === 0 ? slideAll.length - 1 : --currentSlide;
+  goToSlide(currentSlide);
+};
+
+let currentSlide = 0;
+btnLeftSlider.addEventListener("click", function (e) {
+  e.preventDefault();
+  previousSlide();
+});
+
+btnRightSlider.addEventListener("click", function (e) {
+  e.preventDefault();
+  nextSlide();
+});
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "ArrowLeft") {
+    previousSlide();
+  }
+  if (e.key === "ArrowRight") {
+    nextSlide();
+  }
+});
 
 //login//
 const testAccount = {
