@@ -16,10 +16,10 @@
       <h2>Log in</h2>
       <div id="wrong"
       hidden >
-        <p>Wrong username or password was entered!<br> again!</p>
+        <p>Wrong username or password was entered!<br> Try again!</p>
       </div>
-      <input class="username" type="text" placeholder="username"></input>
-      <input class="password" type="text" placeholder="password"></input>
+      <input class="username--login" type="text" placeholder="username"></input>
+      <input class="password--login" type="text" placeholder="password"></input>
       <button class="btn1"> </button>
     </form>
     <p class="scroll_login_explanation">Click to create your account</p>
@@ -33,18 +33,18 @@
         <p class="account_form_explanation">Fill the form to create your account!</p>
         <p class="username_form_explanation">Set your username you want to use</p>
         <p class="username_warning hidden">This username is already used!<br>Please choose different one!</p>
-        <input class="username_form" type="text" placeholder="username"></input>
+        <input class="input_username--create_account" type="text" placeholder="username"></input>
         <p class="password_form_explanation">Set your password you want to use</p>
-        <input class="password_form" type="text" placeholder="password"></input>
+        <input class="input_password--create_account" type="text" placeholder="password"></input>
       <button class="btn_submit--create-account">submit</button>
       <div class="you_will_need">You will need this information in the next page!</div>
     </form>
     
     <!--slider-->
-      <form class="account_form account_form_set_goals hidden">
+      <form class="account_form form_set_goals hidden">
         <h1>Let's set your goals!</h1>
         <p>You can set up to 10 goals! (You can also add or edit goals later)</p>
-       <div class="slide--addmoreinfo">
+       <div class="slider">
       
         <button class="btn_slide btn_left--slide">&larr;</button>
         <button class="btn_slide btn_right--slide">&rarr;</button>
@@ -60,7 +60,7 @@
     <!--main-->
     <div id="body2" hidden>
     <div class="title_date">
-      <p id="welcome">Welcome<br></p>
+      <p class="welcome">Welcome<br></p>
       <h1 class="title">User's<br>Days Counter</h1>
       <div class="date_and_times_left">
       <p class="date"></p>

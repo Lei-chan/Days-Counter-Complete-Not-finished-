@@ -48,8 +48,8 @@ body {
   margin-top: 20px;
 }
 
-.username,
-.password {
+.username--login,
+.password--login {
   height: 25px;
   width: 250px;
   border-radius: 5px;
@@ -185,8 +185,8 @@ body {
   font-size: 18px;
 }
 
-.username_form,
-.password_form {
+.input_username--create_account,
+.input_password--create_account {
   height: 25px;
   width: 300px;
   margin-left: 30%;
@@ -197,7 +197,7 @@ body {
   border: none;
 }
 
-.password_form {
+.input_password--create_account {
   margin-bottom: 35px;
 }
 
@@ -236,7 +236,7 @@ body {
   bottom: 20px;
 }
 
-.slide--addmoreinfo {
+.slider {
   position: relative;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 236, 236));
   height: 300px;
@@ -283,7 +283,7 @@ body {
 .slide h2 {
   position: absolute;
   color: rgb(0, 1, 80);
-  font-size: 43px;
+  font-size: 40px;
   word-spacing: 20px;
   letter-spacing: 2px;
   left: 30%;
@@ -291,7 +291,7 @@ body {
 }
 
 .slide p {
-  font-size: 140%;
+  font-size: 130%;
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
@@ -311,7 +311,7 @@ body {
 .slide input {
   border-radius: 3px;
   border-color: #035ab667;
-  height: 30px;
+  height: 25px;
   padding-left: 10px;
   letter-spacing: 1px;
 }

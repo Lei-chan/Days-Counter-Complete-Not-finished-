@@ -1,27 +1,29 @@
 "use strict";
-const bodyCreateAccAddMoreInfo = document.getElementById(
+const bodyCreateAccMore = document.getElementById(
   "body--create_account_addmoreinfo"
 );
 const body2 = document.getElementById("body2");
-const bodyAddMoreInfo = document.getElementById("body--addmoreinfo");
-const pageFirst = document.getElementById("login");
-const loginForm = document.querySelector(".login_form");
-const username = document.querySelector(".username");
-const password = document.querySelector(".password");
-const welcome = document.getElementById("welcome");
+const pageFirst = document.getElementById("page_first");
+const usernameLogin = document.querySelector(".username--login");
+const passwordLogin = document.querySelector(".password--login");
+const welcome = document.querySelector(".welcome");
 const timesLeft = document.querySelector(".times_left-inside");
 const date = document.querySelector(".date");
 const more = document.querySelector(".more");
 const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
-const passwordForm = document.querySelector(".password_form");
-const usernameForm = document.querySelector(".username_form");
+const inputPasswordCreateAcc = document.querySelector(
+  ".input_password--create_account"
+);
+const inputUsernameCreateAcc = document.querySelector(
+  ".input_username--create_account"
+);
 const formAccUserPass = document.querySelector(
   ".account_form_username_password"
 );
 const warningCreateAcc = document.querySelector(".username_warning");
-const slideAddMoreInfo = document.querySelector(".slide--addmoreinfo");
-const formAccSetGoals = document.querySelector(".account_form_set_goals");
+const slider = document.querySelector(".slider");
+const formSetGoals = document.querySelector(".form_set_goals");
 const btnScrollCreateAcc = document.querySelector(
   ".btn_scroll--create-account"
 );
@@ -50,7 +52,7 @@ const setSliderComponent = function (numberOfSlides) {
             <input class="input_goal_date--slide" type="date"></input>
             </div>
           </div>`;
-    slideAddMoreInfo.insertAdjacentHTML("afterbegin", html);
+    slider.insertAdjacentHTML("afterbegin", html);
   }
 };
 setSliderComponent(10);
@@ -186,7 +188,7 @@ const setGetLocalStorage = function () {
 };
 
 const displayWelcome = function () {
-  currentAcc = accounts.find((acc) => acc.username === username.value);
+  currentAcc = accounts.find((acc) => acc.username === usernameLogin.value);
 
   welcome.innerHTML = "";
   welcome.insertAdjacentHTML(
@@ -279,7 +281,10 @@ const displayDays = function (currentAcc) {
 
 const enter = function () {
   accounts.forEach(function (acc) {
-    if (username.value === acc.username && password.value === acc.password) {
+    if (
+      usernameLogin.value === acc.username &&
+      passwordLogin.value === acc.password
+    ) {
       login.style.display = "none";
       body2.hidden = false;
 
@@ -382,7 +387,7 @@ const accountFormUsernamePassword = document.querySelector(
 );
 
 btnScrollCreateAcc.addEventListener("click", function (e) {
-  bodyCreateAccAddMoreInfo.hidden = false;
+  bodyCreateAccMore.hidden = false;
   openCloseModel(accountFormUsernamePassword);
 
   const id = this.getAttribute("href");
@@ -394,24 +399,24 @@ btnScrollCreateAcc.addEventListener("click", function (e) {
 btnSubmitCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
 
-  if (passwordForm.value && usernameForm.value) {
+  if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
     if (
       accounts.find(
         (acc) =>
-          acc.username === usernameForm.value &&
-          acc.password === passwordForm.value
+          acc.username === inputUsernameCreateAcc.value &&
+          acc.password === inputPasswordCreateAcc.value
       )
     ) {
       warningCreateAcc.hidden = false;
     } else {
       new CreateAccount(
-        `${usernameForm.value}`,
-        `${passwordForm.value}`
+        `${inputUsernameCreateAcc.value}`,
+        `${inputPasswordCreateAcc.value}`
       ).saveToAccounts();
       console.log(accounts);
 
-      openCloseModel(accountFormUsernamePassword);
-      openCloseModel(accountFormSetGoals);
+      openCloseModel(formAccUserPass);
+      openCloseModel(formSetGoals);
     }
   }
 });
