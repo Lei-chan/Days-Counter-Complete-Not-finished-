@@ -7,8 +7,9 @@
   </head>
   <body>
    <!--login-->
+   
+   <div id="page_first">
     <div id="login">
-      <button class="howtouse">how to use</button>
       <h3>Let's make your days more exciting!</h3>
       <h1>Days Counter</h1>
       <form class="login_form">
@@ -22,26 +23,25 @@
       <button class="btn1"> </button>
     </form>
     <p class="scroll_login_explanation">Click to create your account</p>
-    <button class="btn_scroll--create-account" href="#body--create-account">&larr;</button>
+    <button class="btn_scroll--create-account" href="#body--create_account_addmoreinfo">&larr;</button>
+   </div>
 
     <!--create an account-->
-    <div id="body--create-account" hidden>
-      <form class="account_form account_form_username_password">
+    <div id="body--create_account_addmoreinfo" hidden>
+      <form class="account_form account_form_username_password hidden">
         <h1>Let's create your account</h1>
         <p class="account_form_explanation">Fill the form to create your account!</p>
         <p class="username_form_explanation">Set your username you want to use</p>
-        <p class="username_warning" hidden>This username is already used!<br>Please choose different one!</p>
+        <p class="username_warning hidden">This username is already used!<br>Please choose different one!</p>
         <input class="username_form" type="text" placeholder="username"></input>
         <p class="password_form_explanation">Set your password you want to use</p>
         <input class="password_form" type="text" placeholder="password"></input>
       <button class="btn_submit--create-account">submit</button>
       <div class="you_will_need">You will need this information in the next page!</div>
     </form>
-    </div>
-
+    
     <!--slider-->
-    <div id="body--addmoreinfo">
-      <form class="account_form account_form_set_goals">
+      <form class="account_form account_form_set_goals hidden">
         <h1>Let's set your goals!</h1>
         <p>You can set up to 10 goals! (You can also add or edit goals later)</p>
        <div class="slide--addmoreinfo">
@@ -53,8 +53,9 @@
        <button class="btn_submit--create-account">submit</button>
        <a href="#" class="set_goals_later">set goals later</a>
       </form>
+      <button class="btn_howtouse">how to use</button>
     </div>
-    </div>
+   </div>
    
     <!--main-->
     <div id="body2" hidden>

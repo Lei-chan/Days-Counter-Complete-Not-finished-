@@ -1,5 +1,7 @@
 "use strict";
-const bodyCreateAcc = document.getElementById("body--create-account");
+const bodyCreateAccAddMoreInfo = document.getElementById(
+  "body--create_account_addmoreinfo"
+);
 const body2 = document.getElementById("body2");
 const bodyAddMoreInfo = document.getElementById("body--addmoreinfo");
 const pageFirst = document.getElementById("login");
@@ -30,30 +32,61 @@ const btnSubmitCreateAcc = document.querySelector(
 );
 
 const formAcc = document.querySelectorAll(".account_form");
+const dotContainer = document.querySelector(".dots");
 
-const setSliderComponent = function () {
-  for (let i = 0; i < 10; i++) {
+const setSliderComponent = function (numberOfSlides) {
+  for (let i = numberOfSlides - 1; 0 <= i; i--) {
     const html = `
         <div class="slide slide--${i}">
-            <h2 class="testimonial_header">
+            <h2>
               Goal No.${i + 1}
             </h2>
-            <div class="testimonial__text">
+            <div class="goal_name--slide">
+            <p>Set the name of your goal No.${i + 1}!</p>
+            <input class="input_goal_name--slide" type="text" placeholder="goal title"></input>
+            </div>
+            <div class="goal_date--slide">
+            <p>Set the date of your goal No.${i + 1}!</p>
+            <input class="input_goal_date--slide" type="date"></input>
             </div>
           </div>`;
-    slideAddMoreInfo.insertAdjacentHTML("beforeend", html);
+    slideAddMoreInfo.insertAdjacentHTML("afterbegin", html);
   }
 };
-setSliderComponent();
+setSliderComponent(10);
 
 const slideAll = document.querySelectorAll(".slide");
+
+let currentSlide = 0;
+
+const createDots = function () {
+  slideAll.forEach((_, i) => {
+    dotContainer.insertAdjacentHTML(
+      "beforeend",
+      `<button class="dots__dot" data-slide = "${i}"></button>`
+    );
+  });
+};
+createDots();
+
+const dotAll = document.querySelectorAll(".dots__dot");
+
+const activeDot = function (currentSlide) {
+  dotAll.forEach((dot) => {
+    dot.classList.remove("dots__dot--active");
+    if (Number(dot.dataset.slide) === currentSlide) {
+      dot.classList.add("dots__dot--active");
+    }
+  });
+};
 
 const goToSlide = function (currentSlide) {
   slideAll.forEach(
     (s, i) => (s.style.transform = `translateX(${600 * (i - currentSlide)}px)`)
   );
+  activeDot(currentSlide);
 };
-goToSlide(0);
+goToSlide(currentSlide);
 
 const nextSlide = function () {
   currentSlide = currentSlide === slideAll.length - 1 ? 0 : ++currentSlide;
@@ -65,7 +98,6 @@ const previousSlide = function () {
   goToSlide(currentSlide);
 };
 
-let currentSlide = 0;
 btnLeftSlider.addEventListener("click", function (e) {
   e.preventDefault();
   previousSlide();
@@ -83,6 +115,13 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "ArrowRight") {
     nextSlide();
   }
+});
+
+dotContainer.addEventListener("click", function (e) {
+  e.preventDefault();
+  if (!e.target.classList.contains("dots__dot")) return;
+  currentSlide = Number(e.target.dataset.slide);
+  goToSlide(currentSlide);
 });
 
 //login//
@@ -262,14 +301,11 @@ document.querySelector(".btn1").addEventListener("click", function (e) {
   enter();
 });
 
-const openCloseModel = (name) =>
-  (name.hidden = name.hidden === true ? false : true);
+const openCloseModel = (name) => name.classList.toggle("hidden");
 
-const closeModel = (name) => (name.hidden = false);
+const closeModel = (name) => name.classList.add("hidden");
 
 const warningCounter = document.querySelector(".warning_counter");
-
-warningCounter.hidden = true;
 
 document.querySelector(".btn").addEventListener("click", function () {
   if (+timesLeft.textContent === 0) {
@@ -340,10 +376,17 @@ class CreateAccount {
   }
 }
 
+const accountFormSetGoals = document.querySelector(".account_form_set_goals");
+const accountFormUsernamePassword = document.querySelector(
+  ".account_form_username_password"
+);
+
 btnScrollCreateAcc.addEventListener("click", function (e) {
-  bodyCreateAcc.hidden = false;
-  const cl = this.getAttribute("href");
-  document.querySelector(cl).scrollIntoView({
+  bodyCreateAccAddMoreInfo.hidden = false;
+  openCloseModel(accountFormUsernamePassword);
+
+  const id = this.getAttribute("href");
+  document.querySelector(id).scrollIntoView({
     behavior: "smooth",
   });
 });
@@ -367,8 +410,8 @@ btnSubmitCreateAcc.addEventListener("click", function (e) {
       ).saveToAccounts();
       console.log(accounts);
 
-      openCloseModel(bodyCreateAcc);
-      openCloseModel(bodyAddMoreInfo);
+      openCloseModel(accountFormUsernamePassword);
+      openCloseModel(accountFormSetGoals);
     }
   }
 });
