@@ -22,38 +22,54 @@
       <input class="password--login" type="text" placeholder="password"></input>
       <button class="btn1"> </button>
     </form>
-    <p class="scroll_login_explanation">Click to create your account</p>
-    <button class="btn_scroll--create-account" href="#body--create_account_addmoreinfo">&larr;</button>
+    <p class="create__account--scroll_explanation">Click to create your account</p>
+    <button class="create__account--btn_scroll" href="#create__account--body">&larr;</button>
    </div>
 
     <!--create an account-->
-    <div id="body--create_account_addmoreinfo" hidden>
-      <form class="account_form account_form_username_password hidden">
+    <div id="create__account--body" hidden>
+      <form class="create__account--form hidden" data-form="0">
         <h1>Let's create your account</h1>
-        <p class="account_form_explanation">Fill the form to create your account!</p>
-        <p class="username_form_explanation">Set your username you want to use</p>
-        <p class="username_warning hidden">This username is already used!<br>Please choose different one!</p>
-        <input class="input_username--create_account" type="text" placeholder="username"></input>
-        <p class="password_form_explanation">Set your password you want to use</p>
-        <input class="input_password--create_account" type="text" placeholder="password"></input>
-      <button class="btn_submit--create-account">submit</button>
-      <div class="you_will_need">You will need this information in the next page!</div>
+        <p class="create__account--form_explanation">Fill the form to create your account!</p>
+        <p class="create__account--username_explanation">Set your username you want to use</p>
+        <p class="create__account--username_warning hidden">This username is already used!<br>Please choose different one!</p>
+        <input class="create__account--input_username" type="text" placeholder="username"></input>
+        <p class="create__account--password_explanation">Set your password you want to use</p>
+        <input class="create__account--input_password" type="text" placeholder="password"></input>
+      <button class="create__account--btn_next">&larr;</button>
+      <!-- <div class="create__account--you_will_need">You will need this information in the next page!</div> -->
     </form>
+    <button class="btn_howtouse">how to use</button>
     
     <!--slider-->
-      <form class="account_form form_set_goals hidden">
+      <form class="create__account--form hidden" data-form="1">
         <h1>Let's set your goals!</h1>
         <p>You can set up to 10 goals! (You can also add or edit goals later)</p>
-       <div class="slider">
+       <div class="create__account--slider one">
       
-        <button class="btn_slide btn_left--slide">&larr;</button>
-        <button class="btn_slide btn_right--slide">&rarr;</button>
-        <div class="dots"></div>
+        <button class="create__account--btn_slider 
+        create__account--btn_left">&larr;</button>
+        <button class="create__account--btn_slider create__account--btn_right">&rarr;</button>
+        <div class="create__account--dots"></div>
        </div>
-       <button class="btn_submit--create-account">submit</button>
-       <a href="#" class="set_goals_later">set goals later</a>
+       <button class="create__account--btn_next">&larr;</button>
+       <a href="#" class="create__account--set_later">set goals later</a>
       </form>
-      <button class="btn_howtouse">how to use</button>
+
+      <form class="create__account--form hidden" data-form="2">
+        <h1>Let's set your To-do lists!</h1>
+        <p>You can also add or edit To-do lists later</p>
+       <div class="create__account--slider two">
+      
+        <button class="create__account--btn_slider 
+        create__account--btn_left">&larr;</button>
+        <button class="create__account--btn_slider create__account--btn_right">&rarr;</button>
+        <div class="create__account--dots"></div>
+       </div>
+       <button class="create__account--btn_next">&larr;</button>
+       <a href="#" class="create__account--set_later">set To-do lists later</a>
+      </form>
+      
     </div>
    </div>
    

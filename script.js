@@ -1,83 +1,90 @@
 "use strict";
-const bodyCreateAccMore = document.getElementById(
-  "body--create_account_addmoreinfo"
-);
-const body2 = document.getElementById("body2");
+
 const pageFirst = document.getElementById("page_first");
+const btnScrollCreateAcc = document.querySelector(
+  ".create__account--btn_scroll"
+);
+
+//////////Create a new account///////////////
+const bodyCreateAcc = document.getElementById("create__account--body");
+const inputPasswordCreateAcc = document.querySelector(
+  ".create__account--input_password"
+);
+const inputUsernameCreateAcc = document.querySelector(
+  ".create__account--input_username"
+);
+const formCreateAcc = document.querySelector(".create__account--form");
+const warningCreateAcc = document.querySelector(
+  ".create__account--username_warning"
+);
+
+let sliderOneCreateAcc;
+let sliderTwoCreateAcc;
+document.querySelectorAll(".create__account--slider").forEach((slider) => {
+  if (slider.classList.contains("one")) sliderOneCreateAcc = slider;
+  if (slider.classList.contains("two")) sliderTwoCreateAcc = slider;
+});
+
+const btnRightCreateAcc = document.querySelector(".create__account--btn_right");
+const btnLeftCreateAcc = document.querySelector(".create__account--btn_left");
+const dotContainerCreateAcc = document.querySelector(".create__account--dots");
+const btnNextCreateAcc = document.querySelector(".create__account--btn_next");
+
+///////////////log in////////////////////////
 const usernameLogin = document.querySelector(".username--login");
 const passwordLogin = document.querySelector(".password--login");
+
+////////////////main page///////////////////
+const body2 = document.getElementById("body2");
 const welcome = document.querySelector(".welcome");
 const timesLeft = document.querySelector(".times_left-inside");
 const date = document.querySelector(".date");
 const more = document.querySelector(".more");
 const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
-const inputPasswordCreateAcc = document.querySelector(
-  ".input_password--create_account"
-);
-const inputUsernameCreateAcc = document.querySelector(
-  ".input_username--create_account"
-);
-const formAccUserPass = document.querySelector(
-  ".account_form_username_password"
-);
-const warningCreateAcc = document.querySelector(".username_warning");
-const slider = document.querySelector(".slider");
-const formSetGoals = document.querySelector(".form_set_goals");
-const btnScrollCreateAcc = document.querySelector(
-  ".btn_scroll--create-account"
-);
-const btnRightSlider = document.querySelector(".btn_right--slide");
-const btnLeftSlider = document.querySelector(".btn_left--slide");
-const btnSubmitCreateAcc = document.querySelector(
-  ".btn_submit--create-account"
-);
-
-const formAcc = document.querySelectorAll(".account_form");
-const dotContainer = document.querySelector(".dots");
 
 const setSliderComponent = function (numberOfSlides) {
   for (let i = numberOfSlides - 1; 0 <= i; i--) {
     const html = `
-        <div class="slide slide--${i}">
+        <div class="create__account--slide slide--${i}">
             <h2>
               Goal No.${i + 1}
             </h2>
-            <div class="goal_name--slide">
+            <div class="create__account--goal_name">
             <p>Set the name of your goal No.${i + 1}!</p>
-            <input class="input_goal_name--slide" type="text" placeholder="goal title"></input>
+            <input class="create__account--input_goal_name" type="text" placeholder="goal title"></input>
             </div>
-            <div class="goal_date--slide">
+            <div class="create__account--goal_date">
             <p>Set the date of your goal No.${i + 1}!</p>
-            <input class="input_goal_date--slide" type="date"></input>
+            <input class="create__account--input_goal_date" type="date"></input>
             </div>
           </div>`;
-    slider.insertAdjacentHTML("afterbegin", html);
+    sliderOneCreateAcc.insertAdjacentHTML("afterbegin", html);
   }
 };
 setSliderComponent(10);
 
-const slideAll = document.querySelectorAll(".slide");
+const slideAll = document.querySelectorAll(".create__account--slide");
 
 let currentSlide = 0;
 
 const createDots = function () {
   slideAll.forEach((_, i) => {
-    dotContainer.insertAdjacentHTML(
+    dotContainerCreateAcc.insertAdjacentHTML(
       "beforeend",
-      `<button class="dots__dot" data-slide = "${i}"></button>`
+      `<button class="create__account--dots_dot" data-slide = "${i}"></button>`
     );
   });
 };
 createDots();
 
-const dotAll = document.querySelectorAll(".dots__dot");
+const dotAll = document.querySelectorAll(".create__account--dots_dot");
 
 const activeDot = function (currentSlide) {
   dotAll.forEach((dot) => {
-    dot.classList.remove("dots__dot--active");
+    dot.classList.remove("create__account--dots_dot--active");
     if (Number(dot.dataset.slide) === currentSlide) {
-      dot.classList.add("dots__dot--active");
+      dot.classList.add("create__account--dots_dot--active");
     }
   });
 };
@@ -100,12 +107,12 @@ const previousSlide = function () {
   goToSlide(currentSlide);
 };
 
-btnLeftSlider.addEventListener("click", function (e) {
+btnLeftCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
   previousSlide();
 });
 
-btnRightSlider.addEventListener("click", function (e) {
+btnRightCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
   nextSlide();
 });
@@ -119,31 +126,14 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-dotContainer.addEventListener("click", function (e) {
+dotContainerCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
-  if (!e.target.classList.contains("dots__dot")) return;
+  if (!e.target.classList.contains("create__account--dots_dot")) return;
   currentSlide = Number(e.target.dataset.slide);
   goToSlide(currentSlide);
 });
 
 //login//
-const testAccount = {
-  username: "Test",
-  password: "1",
-  goals: [
-    new Date(2025, 3, 14),
-    new Date(2025, 5, 4),
-    new Date(2026, 1, 5),
-    new Date(2026, 1, 19),
-  ],
-  visitDates: [],
-  howManyDays: [],
-};
-
-let accounts = [testAccount];
-
-// localStorage.setItem("accounts", JSON.stringify(accounts));
-// localStorage.setItem("commentsObj", JSON.stringify(commentsObj));
 
 let today = new Date();
 let todayTimeStamp = Date.now();
@@ -381,14 +371,10 @@ class CreateAccount {
   }
 }
 
-const accountFormSetGoals = document.querySelector(".account_form_set_goals");
-const accountFormUsernamePassword = document.querySelector(
-  ".account_form_username_password"
-);
+btnScrollCreateAcc.addEventListener("click", function () {
+  bodyCreateAcc.hidden = false;
 
-btnScrollCreateAcc.addEventListener("click", function (e) {
-  bodyCreateAccMore.hidden = false;
-  openCloseModel(accountFormUsernamePassword);
+  openCloseModel(formCreateAcc);
 
   const id = this.getAttribute("href");
   document.querySelector(id).scrollIntoView({
@@ -396,7 +382,7 @@ btnScrollCreateAcc.addEventListener("click", function (e) {
   });
 });
 
-btnSubmitCreateAcc.addEventListener("click", function (e) {
+btnNextCreateAcc.addEventListener("click", function (e) {
   e.preventDefault();
 
   if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
@@ -415,8 +401,7 @@ btnSubmitCreateAcc.addEventListener("click", function (e) {
       ).saveToAccounts();
       console.log(accounts);
 
-      openCloseModel(formAccUserPass);
-      openCloseModel(formSetGoals);
+      openCloseModel(formCreateAcc);
     }
   }
 });

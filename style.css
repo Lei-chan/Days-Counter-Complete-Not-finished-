@@ -96,14 +96,14 @@ body {
   font-size: 20px;
 }
 
-.scroll_login_explanation {
+.create__account--scroll_explanation {
   margin-top: 80px;
   font-size: 140%;
   letter-spacing: 2px;
   color: white;
 }
 
-.btn_scroll--create-account {
+.create__account--btn_scroll {
   position: relative;
   transform: rotate(270deg);
   border-radius: 100%;
@@ -116,7 +116,7 @@ body {
   margin-top: 20px;
 }
 
-#body--create_account_addmoreinfo {
+#create__account--body {
   position: relative;
   /* border-top-color: #0359b6; */
   height: 600px;
@@ -141,7 +141,7 @@ body {
   background-color: #bebaba;
 }
 
-.account_form {
+.create__account--form {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -157,7 +157,7 @@ body {
   left: 290px;
 }
 
-.account_form h1 {
+.create__account--form h1 {
   color: #0359b6;
   font-size: 45px;
   margin: 25px;
@@ -165,28 +165,28 @@ body {
   letter-spacing: 3px;
 }
 
-.account_form_explanation {
+.create__account--form_explanation {
   color: #0359b6;
   font-size: 20px;
   letter-spacing: 1px;
   margin-top: 25px;
 }
 
-.username_form_explanation,
-.password_form_explanation {
+.create__account--username_explanation,
+.create__account--password_explanation {
   margin-top: 30px;
   font-size: 20px;
   letter-spacing: 2px;
 }
 
-.username_warning {
+.create__account--username_warning {
   color: rgb(235, 231, 0);
   letter-spacing: 2px;
   font-size: 18px;
 }
 
-.input_username--create_account,
-.input_password--create_account {
+.create__account--input_username,
+.create__account--input_password {
   height: 25px;
   width: 300px;
   margin-left: 30%;
@@ -197,13 +197,13 @@ body {
   border: none;
 }
 
-.input_password--create_account {
+.create__account--input_password {
   margin-bottom: 35px;
 }
 
-.btn_submit--create-account {
-  height: 60px;
-  width: 150px;
+.create__account--btn_next {
+  height: 50px;
+  width: 130px;
   border-radius: 10px;
   cursor: pointer;
   border: none;
@@ -212,16 +212,17 @@ body {
   font-family: "Arial";
   font-size: 20px;
   letter-spacing: 3px;
-  margin-left: 39%;
+  margin-top: 10px;
+  margin-left: 40%;
+  transform: rotate(180deg);
   transition: all 0.2s;
 }
 
-.btn_submit--create-account:hover {
+.create__account--btn_next:hover {
   background-color: #33ffcc;
-  transform: translateY(-2px);
 }
 
-.you_will_need {
+.create__account--you_will_need {
   position: absolute;
   background-color: rgb(255, 187, 0);
   color: rgb(192, 0, 0);
@@ -236,7 +237,7 @@ body {
   bottom: 20px;
 }
 
-.slider {
+.create__account--slider {
   position: relative;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(245, 236, 236));
   height: 300px;
@@ -247,7 +248,7 @@ body {
   overflow: hidden;
 }
 
-.dots {
+.create__account--dots {
   position: absolute;
   bottom: 5%;
   left: 50%;
@@ -255,7 +256,7 @@ body {
   display: flex;
 }
 
-.dots__dot {
+.create__account--dots_dot {
   border: none;
   background-color: #868585;
   opacity: 0.7;
@@ -270,17 +271,17 @@ body {
   /* box-shadow: 0 0.6rem 1.5rem rgba(0, 0, 0, 0.7); */
 }
 
-.dots__dot:last-child {
+.create__account--dots_dot:last-child {
   margin: 0;
 }
 
-.dots__dot--active {
+.create__account--dots_dot--active {
   /* background-color: #fff; */
   background-color: #888;
   opacity: 1;
 }
 
-.slide h2 {
+.create__account--slider h2 {
   position: absolute;
   color: rgb(0, 1, 80);
   font-size: 40px;
@@ -290,25 +291,25 @@ body {
   top: 20px;
 }
 
-.slide p {
+.create__account--slider p {
   font-size: 130%;
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
 
-.goal_name--slide {
+.create__account--goal_name {
   position: absolute;
   left: 23%;
   top: 90px;
 }
 
-.goal_date--slide {
+.create__account--goal_date {
   position: absolute;
   left: 23%;
   top: 180px;
 }
 
-.slide input {
+.create__account--slider input {
   border-radius: 3px;
   border-color: #035ab667;
   height: 25px;
@@ -316,11 +317,11 @@ body {
   letter-spacing: 1px;
 }
 
-.input_goal_name--slide {
+.create__account--input_goal_name {
   width: 300px;
 }
 
-.btn_slide {
+.create__account--btn_slider {
   position: absolute;
   border-radius: 100px;
   border: none;
@@ -331,21 +332,21 @@ body {
   font-size: 120%;
 }
 
-.btn_slide:hover {
+.create__account--btn_slider:hover {
   cursor: pointer;
   background-color: #0000004d;
   transition: all 0.5s;
 }
 
-.btn_left--slide {
+.create__account--btn_left {
   left: 20px;
 }
 
-.btn_right--slide {
+.create__account--btn_right {
   right: 20px;
 }
 
-.set_goals_later {
+.create__account--set_goals_later {
   position: absolute;
   right: 30px;
   bottom: 20px;
@@ -354,7 +355,7 @@ body {
   transition: all 0.2s;
 }
 
-.set_goals_later:hover {
+.create__account--set_goals_later:hover {
   color: #00bef8;
   transform: translateY(-2px);
 }
