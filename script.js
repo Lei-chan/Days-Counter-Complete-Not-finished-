@@ -1,5 +1,6 @@
 "use strict";
 
+////////////first page (log in page)/////////
 const pageFirst = document.getElementById("page_first");
 const btnScrollCreateAcc = document.querySelector(
   ".create__account--btn_scroll"
@@ -43,7 +44,7 @@ const more = document.querySelector(".more");
 const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
 
-const setSliderComponent = function (numberOfSlides) {
+const setSliderOneComponent = function (numberOfSlides) {
   for (let i = numberOfSlides - 1; 0 <= i; i--) {
     const html = `
         <div class="create__account--slide slide--${i}">
@@ -62,7 +63,7 @@ const setSliderComponent = function (numberOfSlides) {
     sliderOneCreateAcc.insertAdjacentHTML("afterbegin", html);
   }
 };
-setSliderComponent(10);
+setSliderOneComponent(10);
 
 const slideAll = document.querySelectorAll(".create__account--slide");
 
