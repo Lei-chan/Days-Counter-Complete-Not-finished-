@@ -2,6 +2,7 @@
 
 ////////////first page (log in page)/////////
 const pageFirst = document.getElementById("page_first");
+const btnHowToUseAll = document.querySelectorAll(".btn_howtouse");
 const btnScrollCreateAcc = document.querySelector(
   ".create__account--btn_scroll"
 );
