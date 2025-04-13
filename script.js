@@ -45,258 +45,266 @@ const more = document.querySelector(".more");
 const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
 
-const setSliderOneComponent = function (numberOfSlides) {
-  for (let i = numberOfSlides - 1; 0 <= i; i--) {
-    const html = `
-        <div class="create__account--slide slide--${i}">
-            <h2>
-              Goal No.${i + 1}
-            </h2>
-            <div class="create__account--goal_name">
-            <p>Set the name of your goal No.${i + 1}!</p>
-            <input class="create__account--input_goal_name" type="text" placeholder="goal title"></input>
-            </div>
-            <div class="create__account--goal_date">
-            <p>Set the date of your goal No.${i + 1}!</p>
-            <input class="create__account--input_goal_date" type="date"></input>
-            </div>
-          </div>`;
-    sliderOneCreateAcc.insertAdjacentHTML("afterbegin", html);
-  }
-};
-setSliderOneComponent(10);
-
-const slideAll = document.querySelectorAll(".create__account--slide");
-
-let currentSlide = 0;
-
-const createDots = function () {
-  slideAll.forEach((_, i) => {
-    dotContainerCreateAcc.insertAdjacentHTML(
-      "beforeend",
-      `<button class="create__account--dots_dot" data-slide = "${i}"></button>`
+////////////first page/////////////////
+class AppFirst {
+  #slideAll;
+  #currentSlide = 0;
+  #dotAll;
+  #accounts = [];
+  constructor() {
+    this._setSliderOneComponent(10);
+    this._createDots();
+    // this._activeDot(this.#currentSlide);
+    this._goToSlide();
+    btnLeftCreateAcc.addEventListener("click", this._previousSlide.bind(this));
+    btnRightCreateAcc.addEventListener("click", this._nextSlide.bind(this));
+    document.addEventListener("keydown", this._arrowSlide.bind(this));
+    dotContainerCreateAcc.addEventListener(
+      "click",
+      this._clickDotSlide.bind(this)
     );
-  });
-};
-createDots();
+    document.querySelector(".btn1").addEventListener("click", this._goToMain);
+  }
 
-const dotAll = document.querySelectorAll(".create__account--dots_dot");
+  _setSliderOneComponent(numberOfSlides) {
+    for (let i = numberOfSlides - 1; 0 <= i; i--) {
+      const html = `
+          <div class="create__account--slide slide--${i}">
+              <h2>
+                Goal No.${i + 1}
+              </h2>
+              <div class="create__account--goal_name">
+              <p>Set the name of your goal No.${i + 1}!</p>
+              <input class="create__account--input_goal_name" type="text" placeholder="goal title"></input>
+              </div>
+              <div class="create__account--goal_date">
+              <p>Set the date of your goal No.${i + 1}!</p>
+              <input class="create__account--input_goal_date" type="date"></input>
+              </div>
+            </div>`;
+      sliderOneCreateAcc.insertAdjacentHTML("afterbegin", html);
 
-const activeDot = function (currentSlide) {
-  dotAll.forEach((dot) => {
-    dot.classList.remove("create__account--dots_dot--active");
-    if (Number(dot.dataset.slide) === currentSlide) {
-      dot.classList.add("create__account--dots_dot--active");
+      this.#slideAll = document.querySelectorAll(".create__account--slide");
     }
-  });
-};
-
-const goToSlide = function (currentSlide) {
-  slideAll.forEach(
-    (s, i) => (s.style.transform = `translateX(${600 * (i - currentSlide)}px)`)
-  );
-  activeDot(currentSlide);
-};
-goToSlide(currentSlide);
-
-const nextSlide = function () {
-  currentSlide = currentSlide === slideAll.length - 1 ? 0 : ++currentSlide;
-  goToSlide(currentSlide);
-};
-
-const previousSlide = function () {
-  currentSlide = currentSlide === 0 ? slideAll.length - 1 : --currentSlide;
-  goToSlide(currentSlide);
-};
-
-btnLeftCreateAcc.addEventListener("click", function (e) {
-  e.preventDefault();
-  previousSlide();
-});
-
-btnRightCreateAcc.addEventListener("click", function (e) {
-  e.preventDefault();
-  nextSlide();
-});
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "ArrowLeft") {
-    previousSlide();
   }
-  if (e.key === "ArrowRight") {
-    nextSlide();
+
+  _createDots() {
+    this.#slideAll.forEach((_, i) => {
+      dotContainerCreateAcc.insertAdjacentHTML(
+        "beforeend",
+        `<button class="create__account--dots_dot" data-slide = "${i}"></button>`
+      );
+    });
+
+    this.#dotAll = document.querySelectorAll(".create__account--dots_dot");
   }
-});
 
-dotContainerCreateAcc.addEventListener("click", function (e) {
-  e.preventDefault();
-  if (!e.target.classList.contains("create__account--dots_dot")) return;
-  currentSlide = Number(e.target.dataset.slide);
-  goToSlide(currentSlide);
-});
+  _activeDot() {
+    this.#dotAll.forEach((dot) => {
+      dot.classList.remove("create__account--dots_dot--active");
+      if (Number(dot.dataset.slide) === this.#currentSlide) {
+        dot.classList.add("create__account--dots_dot--active");
+      }
+    });
+  }
 
-//login//
+  _goToSlide() {
+    this.#slideAll.forEach(
+      (s, i) =>
+        (s.style.transform = `translateX(${600 * (i - this.#currentSlide)}px)`)
+    );
+    this._activeDot();
+  }
 
-let today = new Date();
-let todayTimeStamp = Date.now();
+  _nextSlide(e) {
+    e.preventDefault();
+    this.#currentSlide =
+      this.#currentSlide === this.#slideAll.length - 1
+        ? 0
+        : ++this.#currentSlide;
+    goToSlide();
+  }
 
-const formatDates = function (date) {
-  date = new Date(date);
+  _previousSlide(e) {
+    e.preventDefault();
+    this.#currentSlide =
+      this.#currentSlide === 0
+        ? this.#slideAll.length - 1
+        : --this.#currentSlide;
+    goToSlide();
+  }
 
-  const calcDaysPassed = (date1, date2) =>
+  _arrowSlide(e) {
+    if (e.key === "ArrowLeft") {
+      this._previousSlide();
+    }
+    if (e.key === "ArrowRight") {
+      this._nextSlide();
+    }
+  }
+
+  _clickDotSlide(e) {
+    e.preventDefault();
+    if (!e.target.classList.contains("create__account--dots_dot")) return;
+    this.#currentSlide = Number(e.target.dataset.slide);
+    goToSlide();
+  }
+
+  _goToMain(e) {
+    e.preventDefault();
+
+    this.#accounts.forEach(function (acc) {
+      if (
+        usernameLogin.value === acc.username &&
+        passwordLogin.value === acc.password
+      ) {
+        login.style.display = "none";
+        body2.hidden = false;
+        appMain = new AppMain(this.#accounts);
+      } else {
+        document.getElementById("wrong").hidden = false;
+      }
+    });
+  }
+}
+
+let appMain;
+const appFirst = new AppFirst();
+
+///////////main page (second page)/////////
+class AppMain {
+  #today = new Date();
+  #accounts;
+  #currentAcc;
+  #howManyLeft = [];
+  constructor(accounts) {
+    this.#accounts === accounts;
+    this._init();
+  }
+
+  _calcDaysPassed(date1, date2) {
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+  }
 
-  const daysPassed = calcDaysPassed(today, date);
+  _formatDates(date) {
+    date = new Date(date);
+    const daysPassed = this._calcDaysPassed(this.#today, date);
 
-  if (daysPassed === 0) return "Today";
-  if (daysPassed === 1) return "Yesterday";
-  if (daysPassed <= 7) return `${daysPassed} days ago`;
+    if (daysPassed === 0) return "Today";
+    if (daysPassed === 1) return "Yesterday";
+    if (daysPassed <= 7) return `${daysPassed} days ago`;
 
-  return new Intl.DateTimeFormat(undefined).format(date);
-};
+    return new Intl.DateTimeFormat(undefined).format(date);
+  }
 
-const changeDaysColor = function () {
-  document.querySelectorAll(".days").forEach((day) => {
-    if (day.textContent <= 10) day.style.color = "orange";
-    if (day.textContent <= 3) day.style.color = "red";
-  });
-};
+  _changeDaysColor() {
+    document.querySelectorAll(".days").forEach((day) => {
+      if (day.textContent <= 10) day.style.color = "orange";
+      if (day.textContent <= 3) day.style.color = "red";
+    });
+  }
+
+  _displayWelcome() {
+    this.#currentAcc = this.#accounts.find(
+      (acc) => acc.username === usernameLogin.value
+    );
+
+    welcome.innerHTML = "";
+    welcome.insertAdjacentHTML(
+      "afterbegin",
+      `Welcome<br>${this.#currentAcc.username}!`
+    );
+  }
+
+  _calcHowManyLeft(currentAcc) {
+    this.#currentAcc.goals.forEach((goal) => {
+      const goalTimeStanp = new Date(goal).getTime();
+      const howManyLeft = Math.ceil(
+        (goalTimeStanp - Date.now()) / 1000 / 60 / 60 / 24
+      );
+      this.#howManyLeft.push(howManyLeft);
+    });
+  }
+
+  // _displayComments(comments) {
+  // this.#currentAcc.commentsHolder.innerHTML = "";
+  //   currentComment = this.#currentAcc.comments;
+  //   currentComment.comments.forEach((com, i) => {
+  //     const user = this.#currentAcc.name;
+  //     const date = this._formatDates(currentComment.dates[i]);
+
+  //     const html = `
+  //     <div class='comments_row'>
+  //     <div class='comments_person comments_person--${user}'>${user}</div>
+  //     <div class='comments_date'>${date.padEnd(10, " ")}</div>
+  //     <div class='comments_value'>${com}</div>`;
+  //     commentsHolder.insertAdjacentHTML("afterbegin", html);
+  //   });
+  // }
+
+  _displayLastVisit(currentAcc) {
+    this.#currentAcc.visitDates.push(today + "");
+
+    if (this.#currentAcc.visitDates.length > 4)
+      this.#currentAcc.visitDates.splice(0, 1);
+
+    const format =
+      this.#currentAcc.visitDates.at(-2) &&
+      formatDates(this.#currentAcc.visitDates.at(-2));
+
+    date.textContent = format ? `Last Visit: ${format}` : "Your FIRST VISIT 🎊";
+  }
+
+  _displayDays(currentAcc) {
+    if (this.#currentAcc.howManyDays.length === 0)
+      this.#currentAcc.howManyDays = [...this.#howManyLeft];
+
+    this.#howManyLeft.forEach((currentDay, i) => {
+      const displayFirst = this.#currentAcc.howManyDays[i];
+
+      timesLeft.textContent = displayFirst - currentDay;
+
+      updateCardContent(i, displayFirst);
+    });
+
+    changeDaysColor();
+  }
+
+  _updateCardContent(i, displayFirst) {
+    document.getElementById(`days${i}`).textContent = displayFirst;
+
+    const firstHalf = `${displayFirst} days are`;
+    const html1 = `
+            <p1>${firstHalf} ${(displayFirst / 7).toFixed(1)} weeks</p1>
+            <p2>${firstHalf} ${(displayFirst / 30).toFixed(1)} months</p2>
+            <p3>${firstHalf} ${(displayFirst / 365).toFixed(1)} years</p3>
+            `;
+
+    const html2 = `
+              <p1>${firstHalf} ${displayFirst * 24} hours</p1>
+              <p2>${firstHalf} ${displayFirst * 24 * 60} minutes</p2>
+              <p3>${firstHalf} ${displayFirst * 24 * 60 * 60} seconds</p3>`;
+
+    const moreI = document.getElementById(`more${i}`);
+    moreI.innerHTML = "";
+    moreI.insertAdjacentHTML("afterbegin", html1);
+
+    const additionalI = document.getElementById(`additional_${i}`);
+    additionalI.innerHTML = "";
+    additionalI.insertAdjacentHTML("afterbegin", html2);
+  }
+
+  _init() {
+    this._displayWelcome();
+    this._calcHowManyLeft();
+    this._displayLastVisit();
+    this._displayDays();
+  }
+}
 
 ///////////////////login condition//////////////////////////
-let currentAcc,
-  howManyLeft = [];
-
-const setGetLocalStorage = function () {
-  const accountsLocal = JSON.parse(localStorage.getItem("accounts"));
-
-  const commentsLocal = JSON.parse(localStorage.getItem("commentsObj"));
-
-  if (!accountsLocal && !commentsLocal) return;
-
-  accounts = accountsLocal;
-  commentsObj = commentsLocal;
-
-  console.log(accounts);
-};
-
-const displayWelcome = function () {
-  currentAcc = accounts.find((acc) => acc.username === usernameLogin.value);
-
-  welcome.innerHTML = "";
-  welcome.insertAdjacentHTML(
-    "afterbegin",
-    `Welcome<br>${currentAcc.username}!`
-  );
-};
-
-const calcHowManyLeft = function (currentAcc) {
-  currentAcc.goals.forEach((goal) => {
-    const goalTimeStanp = new Date(goal).getTime();
-    const howMany = Math.ceil(
-      (goalTimeStanp - todayTimeStamp) / 1000 / 60 / 60 / 24
-    );
-    howManyLeft.push(howMany);
-  });
-};
-
-const displayComments = function (commentsObj) {
-  commentsHolder.innerHTML = "";
-
-  commentsObj.comments.forEach((com, i) => {
-    const user = commentsObj.users[i];
-    const date = formatDates(commentsObj.dates[i]);
-
-    const html = `
-    <div class='comments_row'>
-    <div class='comments_person comments_person--${user}'>${user}</div>
-    <div class='comments_date'>${date.padEnd(10, " ")}</div>
-    <div class='comments_value'>${com}</div>`;
-    commentsHolder.insertAdjacentHTML("afterbegin", html);
-  });
-};
-
-const displayLastVisit = function (currentAcc) {
-  currentAcc.visitDates.push(today + "");
-
-  if (currentAcc.visitDates.length > 4) currentAcc.visitDates.splice(0, 1);
-
-  const format =
-    currentAcc.visitDates.at(-2) && formatDates(currentAcc.visitDates.at(-2));
-
-  date.textContent = format ? `Last Visit: ${format}` : "Your FIRST VISIT 🎊";
-
-  localStorage.setItem("accounts", JSON.stringify(accounts));
-};
-
-const updateCardContent = function (i, displayFirst) {
-  document.getElementById(`days${i}`).textContent = displayFirst;
-
-  const firstHalf = `${displayFirst} days are`;
-  const html1 = `
-          <p1>${firstHalf} ${(displayFirst / 7).toFixed(1)} weeks</p1>
-          <p2>${firstHalf} ${(displayFirst / 30).toFixed(1)} months</p2>
-          <p3>${firstHalf} ${(displayFirst / 365).toFixed(1)} years</p3>
-          `;
-
-  const html2 = `
-            <p1>${firstHalf} ${displayFirst * 24} hours</p1>
-            <p2>${firstHalf} ${displayFirst * 24 * 60} minutes</p2>
-            <p3>${firstHalf} ${displayFirst * 24 * 60 * 60} seconds</p3>`;
-
-  const moreI = document.getElementById(`more${i}`);
-  moreI.innerHTML = "";
-  moreI.insertAdjacentHTML("afterbegin", html1);
-
-  const additionalI = document.getElementById(`additional_${i}`);
-  additionalI.innerHTML = "";
-  additionalI.insertAdjacentHTML("afterbegin", html2);
-
-  // localStorage.setItem("accounts", JSON.stringify(accounts));
-};
-
-const displayDays = function (currentAcc) {
-  if (currentAcc.howManyDays.length === 0)
-    currentAcc.howManyDays = [...howManyLeft];
-
-  localStorage.setItem("accounts", JSON.stringify(accounts));
-
-  howManyLeft.forEach((currentDay, i) => {
-    const displayFirst = currentAcc.howManyDays[i];
-
-    timesLeft.textContent = displayFirst - currentDay;
-
-    updateCardContent(i, displayFirst);
-  });
-
-  changeDaysColor();
-};
-
-const enter = function () {
-  accounts.forEach(function (acc) {
-    if (
-      usernameLogin.value === acc.username &&
-      passwordLogin.value === acc.password
-    ) {
-      login.style.display = "none";
-      body2.hidden = false;
-
-      setGetLocalStorage();
-      displayWelcome();
-      displayComments(commentsObj);
-      calcHowManyLeft(currentAcc);
-      displayLastVisit(currentAcc);
-      displayDays(currentAcc);
-    } else {
-      document.getElementById("wrong").hidden = false;
-    }
-  });
-};
 
 //click//
-document.querySelector(".btn1").addEventListener("click", function (e) {
-  e.preventDefault();
-  enter();
-});
 
 const openCloseModel = (name) => name.classList.toggle("hidden");
 

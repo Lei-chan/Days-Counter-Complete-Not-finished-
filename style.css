@@ -14,18 +14,27 @@ body {
 }
 
 .btn_howtouse {
+  background: none;
   border: none;
-  border-radius: 100%;
-  height: 70px;
+  background-image: url("images/cloudSun.png");
+  background-size: cover;
+  height: 140px;
   width: 150px;
+  padding-top: 10px;
   cursor: pointer;
-  font-size: 110%;
+  font-size: 150%;
   letter-spacing: 1px;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
 .btn_howtouse:hover {
-  background-color: #bebaba;
+  transform: translateY(-2px);
+}
+
+.btn_howtouse_one {
+  position: absolute;
+  left: 85%;
+  top: 0%;
 }
 
 #login h3 {
