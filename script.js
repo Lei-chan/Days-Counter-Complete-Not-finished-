@@ -3,6 +3,10 @@
 ////////////first page (log in page)/////////
 const pageFirst = document.getElementById("page_first");
 const btnHowToUseAll = document.querySelectorAll(".btn_howtouse");
+const inputusernameLogin = document.querySelector(".login--input_username");
+const inputPasswordLogin = document.querySelector(".login--input_password");
+const btnLogin = document.querySelector(".login--btn");
+const warningLogin = document.querySelector(".login--warning");
 const btnScrollCreateAcc = document.querySelector(
   ".create__account--btn_scroll"
 );
@@ -44,6 +48,7 @@ const date = document.querySelector(".date");
 const more = document.querySelector(".more");
 const container = document.querySelector(".container");
 const allDays = document.querySelectorAll(".days");
+const warningCounter = document.querySelector(".warning_counter");
 
 ////////////first page/////////////////
 class AppFirst {
@@ -54,6 +59,7 @@ class AppFirst {
   constructor() {
     this._setSliderOneComponent(10);
     this._createDots();
+    btnScrollCreateAcc.addEventListener("click", this._scrollToSlide);
     // this._activeDot(this.#currentSlide);
     this._goToSlide();
     btnLeftCreateAcc.addEventListener("click", this._previousSlide.bind(this));
@@ -63,7 +69,16 @@ class AppFirst {
       "click",
       this._clickDotSlide.bind(this)
     );
-    document.querySelector(".btn1").addEventListener("click", this._goToMain);
+    btnNextCreateAcc.addEventListener("click", this._nextPageSlide.bind(this));
+    btnLogin.addEventListener("click", this._goToMain);
+  }
+
+  _openModel(name) {
+    name.classList.remove("hidden");
+  }
+
+  _closeModel(name) {
+    name.classList.add("hidden");
   }
 
   _setSliderOneComponent(numberOfSlides) {
@@ -97,6 +112,17 @@ class AppFirst {
     });
 
     this.#dotAll = document.querySelectorAll(".create__account--dots_dot");
+  }
+
+  _scrollToSlide() {
+    bodyCreateAcc.hidden = false;
+
+    formCreateAcc.classList.remove("hidden");
+
+    const id = this.getAttribute("href");
+    document.querySelector(id).scrollIntoView({
+      behavior: "smooth",
+    });
   }
 
   _activeDot() {
@@ -150,6 +176,29 @@ class AppFirst {
     goToSlide();
   }
 
+  _nextPageSlide(e) {
+    e.preventDefault();
+
+    if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
+      if (
+        this.#accounts.find(
+          (acc) =>
+            acc.username === inputUsernameCreateAcc.value &&
+            acc.password === inputPasswordCreateAcc.value
+        )
+      ) {
+        warningCreateAcc.hidden = false;
+      } else {
+        new User(
+          `${inputUsernameCreateAcc.value}`,
+          `${inputPasswordCreateAcc.value}`
+        ).saveToAccounts();
+
+        // openCloseModel(formCreateAcc);
+      }
+    }
+  }
+
   _goToMain(e) {
     e.preventDefault();
 
@@ -180,6 +229,19 @@ class AppMain {
   constructor(accounts) {
     this.#accounts === accounts;
     this._init();
+    document
+      .querySelector(".btn")
+      .addEventListener("click", this._decreaseDays.bind(this));
+    container.addEventListener("mouseover", this._daysHover.bind(0.9));
+    container.addEventListener("mouseout", this._daysHover.bind(0));
+  }
+
+  _openModel(name) {
+    name.classList.remove("hidden");
+  }
+
+  _closeModel(name) {
+    name.classList.add("hidden");
   }
 
   _calcDaysPassed(date1, date2) {
@@ -225,22 +287,6 @@ class AppMain {
       this.#howManyLeft.push(howManyLeft);
     });
   }
-
-  // _displayComments(comments) {
-  // this.#currentAcc.commentsHolder.innerHTML = "";
-  //   currentComment = this.#currentAcc.comments;
-  //   currentComment.comments.forEach((com, i) => {
-  //     const user = this.#currentAcc.name;
-  //     const date = this._formatDates(currentComment.dates[i]);
-
-  //     const html = `
-  //     <div class='comments_row'>
-  //     <div class='comments_person comments_person--${user}'>${user}</div>
-  //     <div class='comments_date'>${date.padEnd(10, " ")}</div>
-  //     <div class='comments_value'>${com}</div>`;
-  //     commentsHolder.insertAdjacentHTML("afterbegin", html);
-  //   });
-  // }
 
   _displayLastVisit(currentAcc) {
     this.#currentAcc.visitDates.push(today + "");
@@ -300,55 +346,43 @@ class AppMain {
     this._displayLastVisit();
     this._displayDays();
   }
-}
 
-///////////////////login condition//////////////////////////
+  __decreaseDays() {
+    if (+timesLeft.textContent === 0) {
+      this._closeModel(warningCounter);
+    } else {
+      --timesLeft.textContent;
 
-//click//
+      for (let i = 0; i < this.#currentAcc.goals.length; i++) {
+        let day = document.getElementById(`days${i}`).textContent;
 
-const openCloseModel = (name) => name.classList.toggle("hidden");
+        if (day === 0) return;
 
-const closeModel = (name) => name.classList.add("hidden");
+        --day;
 
-const warningCounter = document.querySelector(".warning_counter");
+        this.#currentAcc.howManyDays = this.#currentAcc.howManyDays.with(
+          i,
+          day
+        );
 
-document.querySelector(".btn").addEventListener("click", function () {
-  if (+timesLeft.textContent === 0) {
-    closeModel(warningCounter);
-  } else {
-    --timesLeft.textContent;
-
-    for (let i = 0; i < currentAcc.goals.length; i++) {
-      let day = document.getElementById(`days${i}`).textContent;
-
-      if (day === 0) return;
-
-      --day;
-
-      currentAcc.howManyDays = currentAcc.howManyDays.with(i, day);
-
-      localStorage.setItem("accounts", JSON.stringify(accounts));
-
-      updateCardContent(i, day);
+        updateCardContent(i, day);
+      }
+      changeDaysColor();
     }
-    changeDaysColor();
   }
-});
 
-const daysHover = function (e) {
-  if (e.target.classList.contains("days")) {
-    const daysId = e.target.id;
-    document.getElementById(`fukidashi_container_${daysId}`).style.opacity =
-      this;
-  }
-};
-
-container.addEventListener("mouseover", daysHover.bind(0.9));
-container.addEventListener("mouseout", daysHover.bind(0));
+  _daysHover = function (e) {
+    if (e.target.classList.contains("days")) {
+      const daysId = e.target.id;
+      document.getElementById(`fukidashi_container_${daysId}`).style.opacity =
+        this;
+    }
+  };
+}
 
 ////create an account/////
 
-class CreateAccount {
+class User {
   #visitDates = [];
   #howManyDays;
   #password;
@@ -380,38 +414,3 @@ class CreateAccount {
     this.setHowManyDays();
   }
 }
-
-btnScrollCreateAcc.addEventListener("click", function () {
-  bodyCreateAcc.hidden = false;
-
-  openCloseModel(formCreateAcc);
-
-  const id = this.getAttribute("href");
-  document.querySelector(id).scrollIntoView({
-    behavior: "smooth",
-  });
-});
-
-btnNextCreateAcc.addEventListener("click", function (e) {
-  e.preventDefault();
-
-  if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
-    if (
-      accounts.find(
-        (acc) =>
-          acc.username === inputUsernameCreateAcc.value &&
-          acc.password === inputPasswordCreateAcc.value
-      )
-    ) {
-      warningCreateAcc.hidden = false;
-    } else {
-      new CreateAccount(
-        `${inputUsernameCreateAcc.value}`,
-        `${inputPasswordCreateAcc.value}`
-      ).saveToAccounts();
-      console.log(accounts);
-
-      openCloseModel(formCreateAcc);
-    }
-  }
-});
