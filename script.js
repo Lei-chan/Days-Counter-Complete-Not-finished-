@@ -19,7 +19,15 @@ const inputPasswordCreateAcc = document.querySelector(
 const inputUsernameCreateAcc = document.querySelector(
   ".create__account--input_username"
 );
-const formCreateAcc = document.querySelector(".create__account--form");
+
+const formCreateAccAllArr = Array.from(
+  document.querySelectorAll(".create__account--form")
+);
+
+const btnCreateAccAllArr = Array.from(
+  document.querySelectorAll(".create__account--btn_next")
+);
+
 const warningCreateAcc = document.querySelector(
   ".create__account--username_warning"
 );
@@ -34,7 +42,7 @@ document.querySelectorAll(".create__account--slider").forEach((slider) => {
 const btnRightCreateAcc = document.querySelector(".create__account--btn_right");
 const btnLeftCreateAcc = document.querySelector(".create__account--btn_left");
 const dotContainerCreateAcc = document.querySelector(".create__account--dots");
-const btnNextCreateAcc = document.querySelector(".create__account--btn_next");
+// const btnNextCreateAcc = document.querySelector(".create__account--btn_next");
 
 ///////////////log in////////////////////////
 const usernameLogin = document.querySelector(".username--login");
@@ -55,11 +63,15 @@ class AppFirst {
   #slideAll;
   #currentSlide = 0;
   #dotAll;
+  #currentFormBtn = 0;
   #accounts = [];
   constructor() {
     this._setSliderOneComponent(10);
     this._createDots();
-    btnScrollCreateAcc.addEventListener("click", this._scrollToSlide);
+    btnScrollCreateAcc.addEventListener(
+      "click",
+      this._scrollToSlide.bind(this)
+    );
     // this._activeDot(this.#currentSlide);
     this._goToSlide();
     btnLeftCreateAcc.addEventListener("click", this._previousSlide.bind(this));
@@ -69,8 +81,10 @@ class AppFirst {
       "click",
       this._clickDotSlide.bind(this)
     );
-    btnNextCreateAcc.addEventListener("click", this._nextPageSlide.bind(this));
-    btnLogin.addEventListener("click", this._goToMain);
+    btnCreateAccAllArr.forEach((btn) =>
+      btn.addEventListener("click", this._createAccNext.bind(this))
+    );
+    btnLogin.addEventListener("click", this._verifyLogin.bind(this));
   }
 
   _openModel(name) {
@@ -114,12 +128,22 @@ class AppFirst {
     this.#dotAll = document.querySelectorAll(".create__account--dots_dot");
   }
 
+  _createAccOpenClose() {
+    console.log(this.#currentFormBtn);
+    formCreateAccAllArr.forEach((form) => {
+      form.classList.add("hidden");
+
+      if (formCreateAccAllArr.indexOf(form) !== this.#currentFormBtn) return;
+      form.classList.remove("hidden");
+    });
+  }
+
   _scrollToSlide() {
     bodyCreateAcc.hidden = false;
 
-    formCreateAcc.classList.remove("hidden");
+    this._createAccOpenClose();
 
-    const id = this.getAttribute("href");
+    const id = btnScrollCreateAcc.getAttribute("href");
     document.querySelector(id).scrollIntoView({
       behavior: "smooth",
     });
@@ -148,7 +172,7 @@ class AppFirst {
       this.#currentSlide === this.#slideAll.length - 1
         ? 0
         : ++this.#currentSlide;
-    goToSlide();
+    this._goToSlide();
   }
 
   _previousSlide(e) {
@@ -157,7 +181,7 @@ class AppFirst {
       this.#currentSlide === 0
         ? this.#slideAll.length - 1
         : --this.#currentSlide;
-    goToSlide();
+    this._goToSlide();
   }
 
   _arrowSlide(e) {
@@ -176,8 +200,29 @@ class AppFirst {
     goToSlide();
   }
 
-  _nextPageSlide(e) {
+  _saveToAccounts(user) {
+    this.#accounts.push(user);
+  }
+
+  ///////////////bug (need to separate them)//////////
+  _createAccNext(e) {
+    // console.log(Number.isFinite(this.#currentFormBtn));
+    if (this.#currentFormBtn === 0) this._setInfoToSetGoals(e);
+
+    if (this.#currentFormBtn === 1) this._setGoalsToSetToDo(e);
+
+    if (this.#currentFormBtn === 2) this._setToDoToMain(e);
+  }
+
+  _changeFormBtn() {
+    if (this.#currentFormBtn !== 2) this.#currentFormBtn++;
+
+    this.#currentFormBtn === 0;
+  }
+
+  _setInfoToSetGoals(e) {
     e.preventDefault();
+    console.log(1);
 
     if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
       if (
@@ -189,17 +234,29 @@ class AppFirst {
       ) {
         warningCreateAcc.hidden = false;
       } else {
-        new User(
+        const user = new User(
           `${inputUsernameCreateAcc.value}`,
           `${inputPasswordCreateAcc.value}`
-        ).saveToAccounts();
+        );
+        this._saveToAccounts(user);
 
-        // openCloseModel(formCreateAcc);
+        this._changeFormBtn();
+        this._createAccOpenClose();
       }
     }
   }
 
-  _goToMain(e) {
+  _setGoalsToSetToDo(e) {
+    this._changeFormBtn();
+    this._createAccOpenClose();
+  }
+
+  _setToDoToMain(e) {
+    this._changeFormBtn();
+    this._goToMain();
+  }
+
+  _verifyLogin(e) {
     e.preventDefault();
 
     this.#accounts.forEach(function (acc) {
@@ -207,13 +264,17 @@ class AppFirst {
         usernameLogin.value === acc.username &&
         passwordLogin.value === acc.password
       ) {
-        login.style.display = "none";
-        body2.hidden = false;
-        appMain = new AppMain(this.#accounts);
+        this._goToMain();
       } else {
         document.getElementById("wrong").hidden = false;
       }
     });
+  }
+
+  _goToMain() {
+    pageFirst.style.display = "none";
+    body2.hidden = false;
+    appMain = new AppMain(this.#accounts);
   }
 }
 
@@ -403,10 +464,6 @@ class User {
 
   setHowManyDays() {
     this.#howManyDays = [...howManyLeft];
-  }
-
-  saveToAccounts() {
-    accounts.push(this);
   }
 
   initLogin() {
