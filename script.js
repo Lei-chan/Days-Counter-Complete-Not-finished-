@@ -28,6 +28,10 @@ const btnCreateAccAllArr = Array.from(
   document.querySelectorAll(".create__account--btn_next")
 );
 
+const linkCreateAccAll = document.querySelectorAll(
+  ".create__account--set_later"
+);
+
 const warningCreateAcc = document.querySelector(
   ".create__account--username_warning"
 );
@@ -68,22 +72,43 @@ class AppFirst {
   constructor() {
     this._setSliderOneComponent(10);
     this._createDots();
+
     btnScrollCreateAcc.addEventListener(
       "click",
       this._scrollToSlide.bind(this)
     );
+
     // this._activeDot(this.#currentSlide);
     this._goToSlide();
+
     btnLeftCreateAcc.addEventListener("click", this._previousSlide.bind(this));
+
     btnRightCreateAcc.addEventListener("click", this._nextSlide.bind(this));
     document.addEventListener("keydown", this._arrowSlide.bind(this));
+
     dotContainerCreateAcc.addEventListener(
       "click",
       this._clickDotSlide.bind(this)
     );
-    btnCreateAccAllArr.forEach((btn) =>
-      btn.addEventListener("click", this._createAccNext.bind(this))
-    );
+
+    btnCreateAccAllArr.forEach((btn) => {
+      if (btn.classList.contains(0))
+        btn.addEventListener("click", this._setInfoToSetGoals.bind(this));
+      if (btn.classList.contains(1))
+        btn.addEventListener("click", this._setGoalsToSetToDo.bind(this));
+      if (btn.classList.contains(2))
+        btn.addEventListener("click", this._setToDoToMain.bind(this));
+    });
+
+    linkCreateAccAll.forEach((link) => {
+      if (link.classList.contains(1)) {
+        link.addEventListener("click", this._setGoalsToSetToDo.bind(this));
+      }
+      if (link.classList.contains(2)) {
+        link.addEventListener("click", this._setToDoToMain.bind(this));
+      }
+    });
+
     btnLogin.addEventListener("click", this._verifyLogin.bind(this));
   }
 
@@ -129,7 +154,6 @@ class AppFirst {
   }
 
   _createAccOpenClose() {
-    console.log(this.#currentFormBtn);
     formCreateAccAllArr.forEach((form) => {
       form.classList.add("hidden");
 
@@ -205,14 +229,6 @@ class AppFirst {
   }
 
   ///////////////bug (need to separate them)//////////
-  _createAccNext(e) {
-    // console.log(Number.isFinite(this.#currentFormBtn));
-    if (this.#currentFormBtn === 0) this._setInfoToSetGoals(e);
-
-    if (this.#currentFormBtn === 1) this._setGoalsToSetToDo(e);
-
-    if (this.#currentFormBtn === 2) this._setToDoToMain(e);
-  }
 
   _changeFormBtn() {
     if (this.#currentFormBtn !== 2) this.#currentFormBtn++;
@@ -222,7 +238,6 @@ class AppFirst {
 
   _setInfoToSetGoals(e) {
     e.preventDefault();
-    console.log(1);
 
     if (inputPasswordCreateAcc.value && inputUsernameCreateAcc.value) {
       if (
@@ -247,11 +262,13 @@ class AppFirst {
   }
 
   _setGoalsToSetToDo(e) {
+    e.preventDefault();
     this._changeFormBtn();
     this._createAccOpenClose();
   }
 
   _setToDoToMain(e) {
+    e.preventDefault();
     this._changeFormBtn();
     this._goToMain();
   }

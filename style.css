@@ -372,10 +372,6 @@ body {
   transform: translateY(-2px);
 }
 
-#body2 {
-  background-color: #fcfce1;
-}
-
 #welcome {
   background-image: url("images/cloud.png");
   background-size: 270px;

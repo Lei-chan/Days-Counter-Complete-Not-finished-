@@ -15,7 +15,7 @@
       <h1>Days Counter</h1>
       <form class="login--form">
       <h2>Log in</h2>
-      <div class="login--warning">
+      <div class="login--warning hidden">
         <p>Wrong username or password was entered!<br> Try again!</p>
       </div>
       <input class="login--input_username" type="text" placeholder="username"></input>
@@ -28,7 +28,7 @@
 
     <!--create a new account-->
     <div id="create__account--body" hidden>
-      <form class="create__account--form hidden" data-form="0">
+      <form class="create__account--form hidden">
         <h1>Let's create your account</h1>
         <p class="create__account--form_explanation">Fill the form to create your account!</p>
         <p class="create__account--username_explanation">Set your username you want to use</p>
@@ -36,14 +36,14 @@
         <input class="create__account--input_username" type="text" placeholder="username"></input>
         <p class="create__account--password_explanation">Set your password you want to use</p>
         <input class="create__account--input_password" type="text" placeholder="password"></input>
-      <button class="create__account--btn_next">&larr;</button>
+      <button class="create__account--btn_next 0">&larr;</button>
       <!-- <div class="create__account--you_will_need">You will need this information in the next page!</div> -->
     </form>
     <!--change the design to the sun-->
     <button class="btn_howtouse create__account--btn_howtouse">how to use</button>
     
     <!--slider-->
-      <form class="create__account--form hidden" data-form="1">
+      <form class="create__account--form hidden">
         <h1>Let's set your goals!</h1>
         <p>You can set up to 10 goals! (You can also add or edit goals later)</p>
        <div class="create__account--slider one">
@@ -53,11 +53,11 @@
         <button class="create__account--btn_slider create__account--btn_right">&rarr;</button>
         <div class="create__account--dots"></div>
        </div>
-       <button class="create__account--btn_next">&larr;</button>
-       <a href="#" class="create__account--set_later">set goals later</a>
+       <button class="create__account--btn_next 1">&larr;</button>
+       <a href="#" class="create__account--set_later 1">set goals later</a>
       </form>
 
-      <form class="create__account--form hidden" data-form="2">
+      <form class="create__account--form hidden">
         <h1>Let's set your To-do lists!</h1>
         <p>You can also add or edit To-do lists later</p>
        <div class="create__account--slider two">
@@ -67,8 +67,8 @@
         <button class="create__account--btn_slider create__account--btn_right">&rarr;</button>
         <div class="create__account--dots"></div>
        </div>
-       <button class="create__account--btn_next">&larr;</button>
-       <a href="#" class="create__account--set_later">set To-do lists later</a>
+       <button class="create__account--btn_next 2">&larr;</button>
+       <a href="#" class="create__account--set_later 2">set To-do lists later</a>
       </form>
       
     </div>
